@@ -80,6 +80,8 @@ def book_mad_lib
     
     puts madlib
     file.close
+    
+    would_you_like_to_play_again
   end
 end
     
@@ -143,6 +145,8 @@ def thanksgiving_mad_lib
     
     puts madlib
     file.close
+    
+    would_you_like_to_play_again
   end
 end
   
@@ -229,6 +233,8 @@ def  vacation_mad_lib
   
   puts madlib
   file.close
+  
+  would_you_like_to_play_again
   end
 end
 
@@ -263,8 +269,11 @@ play_again = gets.chomp
   end
 end
 
+
+
+
 choose_game
-would_you_like_to_play_again
+
 
 
 
