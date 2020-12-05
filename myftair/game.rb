@@ -77,7 +77,7 @@ end
 class Monster
   attr_accessor :hit_points, :attack_power
 
-  def self.max_hit_point
+  def self.max_hit_points
     10
   end
 
@@ -184,11 +184,11 @@ class Room
   end
 
   def get_size
-    %q[small medium large].sample
+    %w[small medium large].sample
   end
 
   def get_adjective
-    %q[pretty ugly hideous].sample
+    %w[pretty ugly hideous].sample
   end
 end
 
@@ -207,7 +207,7 @@ class Game
     @player = Player.new
   end
 
-  def call
+  def play
     start_game
   end
 
@@ -250,5 +250,5 @@ class Game
 end
 
 game = Game.new
-game.call
+game.play
 
