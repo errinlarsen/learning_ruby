@@ -157,7 +157,7 @@ end
 
 # Room
 #
-# The Room class is what populates the World's "cells"
+# The Room class holds the state of the World's rooms
 #
 class Room
   attr_accessor :size, :content
@@ -197,6 +197,13 @@ end
 #
 # Dir["lib/**.*"].each { |file| require_relative file }
 
+# Game
+#
+# The Game object will "drive", or "control" the game for the player; describing
+# the current status, prompting the player, collecting their input, and finally
+# adjusting the game state based on the results. This continues until the Player
+# is no longer `alive?`
+#
 class Game
   def self.actions
     %i[north east south west look fight take status]
