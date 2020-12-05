@@ -184,10 +184,71 @@ class Room
   end
 
   def get_size
-    ["small", "medium", "large"].sample
+    %q[small medium large].sample
   end
 
   def get_adjective
-    ["pretty", "ugly", "hideous"].sample
+    %q[pretty ugly hideous].sample
   end
 end
+
+# TODO: once you break this file into multiple files, the following will require
+# all the pieces:
+#
+# Dir["lib/**.*"].each { |file| require_relative file }
+
+class Game
+  def self.actions
+    %i[north east south west look fight take status]
+  end
+
+  def initialize
+    @world = World.new
+    @player = Player.new
+  end
+
+  def call
+    start_game
+  end
+
+  private
+  def start_game
+    while @player.alive?
+      @current_room = @world.get_room_of(@player)
+
+      print_status
+
+      players_input = get_player_input
+      next unless Game.actions.include? players_input
+
+      take_action(players_input)
+    end
+  end
+
+  def get_player_input
+    print "What's the plan, Stan? "
+    gets.chomp.to_sym
+  end
+
+  def print_status
+    puts "You are at map coordinates [#{@player.x_coord}, #{@player.y_coord}]"
+    puts @current_room
+    puts "You see #{@current_room.content}." if @current_room.content
+  end
+
+  def take_action(action)
+    case action
+    when :look         then print_status
+    when :north        then @world.move_entity_north(@player)
+    when :east         then @world.move_entity_east(@player)
+    when :south        then @world.move_entity_south(@player)
+    when :west         then @world.move_entity_west(@player)
+    when :fight, :take then @current_room.interact(@player)
+    when :status       then @player.print_status
+    end
+  end
+end
+
+game = Game.new
+game.call
+
